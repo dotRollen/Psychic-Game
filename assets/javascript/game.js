@@ -2,7 +2,7 @@
 var winsScore = 0;
 var lossesScore = 0;
 var guessesLeft = 10;
-var guessesSoFar = [];
+var guessesArray = [];
 
 // Set array from A to Z for the computer to guess.
 var choices = ["a", "b", "c", "d", "e", 
@@ -41,6 +41,19 @@ document.onkeyup = function(event) {
         }
     }
 
+    function guessedTwice(guess, guesses) {
+        
+        for (var i = 0; i < guesses.length; i++) {
+            
+            if (guess == (guesses[i])) {
+
+                //Uncomment/comment for debugging isLetter function.
+                //console.log("Is a letter, you have typed " + letter);
+                return true; 
+            }
+        }
+    }
+
     //Uncomment for debugging isLetter function.
     //isLetter(userGuess, choices) 
 
@@ -48,17 +61,29 @@ document.onkeyup = function(event) {
         
         if (guessesLeft > 1) {
             
-            if (userGuess == computerChoice) {
+            if (guessedTwice(userGuess, guessesArray)) {
+                
+                alert("You already tried this guess! Choose another one.")
+
+            }
+
+            else if (userGuess == computerChoice) {
 
                 //Uncomment to debug game wins.
                 //console.log("You guessed right! Computer Guess  " + computerChoice);
 
                 winsScore++;
+
                 document.getElementById("wins-score").innerHTML = winsScore;
                 alert("Human wins!! Take that HAL! Computer chose " + computerChoice)
+
                 guessesLeft = 10;
+
                 document.getElementById("guesses-score").innerHTML = guessesLeft;
                 computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+                guessesArray = [];
+                document.getElementById("guesses").innerHTML = guessesArray;
             }   
             
             else {
@@ -68,22 +93,25 @@ document.onkeyup = function(event) {
 
                 guessesLeft--;
                 document.getElementById("guesses-score").innerHTML = guessesLeft;
-                guessesSoFar.push(userGuess); 
-                document.getElementById("guesses").innerHTML = guessesSoFar;
+
+                guessesArray.push(userGuess); 
+                document.getElementById("guesses").innerHTML = guessesArray;
             }
         }
 
         else {
 
             alert("Game over! Computer wins :(...")
+
             lossesScore++;
+
             document.getElementById("losses-score").innerHTML = lossesScore;
+
             guessesLeft = 10;
             document.getElementById("guesses-score").innerHTML = guessesLeft;
-            guessesSoFar.forEach(){
-                console.log(item + index)
-            }
 
+            guessesArray = [];
+            document.getElementById("guesses").innerHTML = guessesArray;
         }
     }
 
