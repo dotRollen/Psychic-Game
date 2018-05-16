@@ -26,21 +26,6 @@ document.onkeyup = function(event) {
     var key = event.key;
     var userGuess = key.toLowerCase();
 
-
-
-    function isLetter(letter, alphabet) {
-        
-        for (var i = 0; i < choices.length; i++) {
-            
-            if (letter == (alphabet[i])) {
-
-                //Uncomment/comment for debugging isLetter function.
-                //console.log("Is a letter, you have typed " + letter);
-                return true; 
-            }
-        }
-    }
-
     function guessedTwice(guess, guesses) {
         
         for (var i = 0; i < guesses.length; i++) {
@@ -57,7 +42,7 @@ document.onkeyup = function(event) {
     //Uncomment for debugging isLetter function.
     //isLetter(userGuess, choices) 
 
-    if (isLetter(userGuess, choices)) {
+    if ((event.keyCode >= 65) && (event.keyCode <= 90)) {
         
         if (guessesLeft > 1) {
             
